@@ -1,22 +1,23 @@
-import sys
-n = int(sys.stdin.readline())
-stack = []
-result = []
-is_valid = True
-cnt = 1
-for _ in range(n):
-    target = int(sys.stdin.readline())
-    while cnt <= target:
-        stack.append(cnt)
-        result.append("+")
-        cnt += 1
-    if stack[-1] == target:
+N = int(input())
+ 
+goal = [int(input().strip()) for i in range(N)]
+ 
+ans = []  
+stack = []  
+num = 1 
+ 
+for g in goal:
+    while num <= g: 
+        stack.append(num)
+        ans.append("+")
+        num += 1
+ 
+    if stack and stack[-1] == g: 
         stack.pop()
-        result.append("-")
+        ans.append("-")
     else:
-        is_valid = False
+        print("NO")
         break
-if not is_valid:
-    print("NO")
 else:
-    print(*result, sep="\n")
+    for action in ans:
+        print(action)
