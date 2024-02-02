@@ -1,31 +1,25 @@
 import sys
 input = sys.stdin.readline
 
+n = int(input())
+data = list(map(int,input().split()))
+stack = [(data[0], 1)]
+res = [0 for i in range(n)]
 
-n=int(input()) 
-l=list(map(int,input().split()))
-ans=[0 for i in range(n)]
-
-stack=[ (l[0],1) ] #높이, index)
-
-#같은 타워도 통과함 
-for i in range(1,n):
-    #하나를 넣어주고 시작하기 때문에 여기서 len(stack)인 경우는 없음
-    
-    if l[i]<stack[-1][0]: #편하게 추가하는 경우
-        ans[i]=stack[-1][1] #정답은 index로 담아줌
-        stack.append((l[i],i+1)) #현재 높이와index 담아줌
-    else: #통과
+for i in range(1, n):
+    if data[i] < stack[-1][0]:
+        res[i] = stack[-1][1]
+        stack.append((data[i], i + 1))
+    else:
         while True:
             stack.pop()
-            if len(stack)==0: 
-                stack.append((l[i],i+1))
+            if len(stack) == 0:
+                stack.append((data[i], i + 1))
                 break
-            if l[i]<stack[-1][0] : 
-                ans[i]=stack[-1][1]
-                stack.append((l[i],i+1))
+            if data[i] < stack[-1][0]:
+                res[i] = stack[-1][1]
+                stack.append((data[i], i + 1))
                 break
-   
-print(*ans)
 
 
+print(*res)
