@@ -1,5 +1,4 @@
-import datetime as dt
+import datetime
 
-x=dt.datetime.now()
-
-print(f"{x.year}-{str(x.month).zfill(2)}-{str(x.day).zfill(2)}")
+today = datetime.datetime.now()
+print(today.strftime("%Y-%m-%d"))
