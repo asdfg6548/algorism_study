@@ -1,44 +1,56 @@
-import sys
+"""
+1. 아이디어
+- 2중 for => 값 1 && 방문X => BFS
+- BFS 돌면서 그림 개수 +1, 최대값을 갱신
+
+2. 시간복잡도
+- BFS : O(V+E)
+- V : 500 * 500
+- E : 4 * 500 * 500
+- V+E : 5 * 250000 = 100만 < 2억 >> 가능!
+
+3. 자료구조
+- 그래프 전체 지도 : int[][]
+- 방문 : bool[][]
+- Queue(BFS)
+"""
+
 from collections import deque
 
+import sys
 input = sys.stdin.readline
 
-n, m = map(int, input().rstrip().split())
-do = []  # 도화지, 그래프
-cnt = 0  # 그림의 갯수 변수
-res = [0]  # 그림의 넓이 담을 배열
+n,m = map(int, input().split())
+map = [list(map(int, input().split())) for _ in range(n)]
+chk = [[False] * m for _ in range(n)]
 
-# 그림 그리기
-for i in range(n):
-    do.append(list(map(int, input().rstrip().split())))
+dy = [0,1,0,-1]
+dx = [1,0,-1,0]
 
+def bfs(y, x):
+    rs = 1
+    q = deque()
+    q.append((y, x))
+    while q:
+        ey, ex = q.popleft()
+        for k in range(4):
+            ny = ey + dy[k]
+            nx = ex + dx[k]
+            if 0<=ny<n and 0<=nx<m:
+                if map[ny][nx] == 1 and chk[ny][nx] == False:
+                    rs += 1
+                    chk[ny][nx] = True
+                    q.append((ny,nx))
+    return rs
 
-def bfs(x, y):
-    # 상하좌우 4방향
-    dx = [-1, 1, 0, 0]
-    dy = [0, 0, -1, 1]
-    queue = deque()
-    queue.append([x, y])
-    do[x][y] = 0  # 시작점 방문처리
-    are = 1  # 넓이는 1부터 시작
-    while queue:
-        a, b = queue.popleft()
-        for i in range(4):
-            nx = a + dx[i]
-            ny = b + dy[i]
-            # 도화지 안에 위치하고 아직 방문하지 않았다면 방문
-            if 0 <= nx < n and 0 <= ny < m and do[nx][ny] == 1:
-                are += 1  # 넓이 키우기
-                do[nx][ny] = 0  # 방문 처리
-                queue.append([nx, ny])  # 큐에 삽입
-    res.append(are)  # 그림의 넓이 배열에 삽입
+cnt = 0
+maxv = 0
+for j in range(n):
+    for i in range(m):
+        if map[j][i] == 1 and chk[j][i] == False:
+            chk[j][i] = True
+            cnt += 1
+            maxv = max(maxv, bfs(j,i))
 
-
-for x in range(n):
-    for y in range(m):
-        if do[x][y] == 1:  # 그림이 그려져있다면 BFS 탐색 시작
-            bfs(x, y)
-            cnt += 1  # 그림 갯수 +1
-
-print(cnt)  # 그림갯수 출력
-print(max(res))  # 그림의 넓이 최대값 출력
+print(cnt)
+print(maxv)
