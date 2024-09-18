@@ -4,25 +4,16 @@ input = sys.stdin.readline
 n=int(input())
 
 for i in range(n):
-    a, b = map(str, input().split())
-    # 각각 배열에 넣음
-    first=list(a)
-    second=list(b)
-    # 정렬
+    a,b=map(str,input().split())
+    first = list(a)
+    second = list(b)
+    #정렬
     first.sort()
     second.sort()
-    # 길이 비교 먼저
-    if len(first) != len(second):
+    # 글자수부터 비교
+    if len(first)!=len(second):
         print("Impossible")
-        continue
-    # 문자 비교
-    for i in range(len(first)):
-        if first[i] != second[i]:
-            temp = "F"
-            break
-        else:
-            temp = "T"
-    if temp == "F":
+    elif first!=second:
         print("Impossible")
     else:
         print("Possible")
