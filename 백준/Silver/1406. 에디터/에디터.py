@@ -1,24 +1,21 @@
 import sys
+input = sys.stdin.readline
 
-str1 = list(sys.stdin.readline().rstrip())
-str2 = []
+left=list(input().rstrip())
+right=[]
 
-for i in range(int(sys.stdin.readline())):
-    command = list(sys.stdin.readline().split())
-    if command[0] == 'L':
-        if str1:
-            str2.append(str1.pop())
-        
-    elif command[0] == 'D':
-        if str2:
-            str1.append(str2.pop())
-    
-    elif command[0] == 'B':
-        if str1:
-            str1.pop()
-    
-    else:
-        str1.append(command[1])
+n=int(input())
 
-str1.extend(reversed(str2))
-print(''.join(str1))
+for i in range(n):
+    command=list(input().split())
+    if command[0]=='L' and left:
+        right.append(left.pop())
+    elif command[0]=='D'and right:
+        left.append(right.pop())
+    elif command[0]=='B' and left:
+        left.pop()
+    elif command[0] == 'P':
+        left.append(command[1])
+
+res=left+right[::-1]
+print(''.join(res))
