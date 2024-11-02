@@ -1,22 +1,12 @@
+# 순열을 활용
+from itertools import permutations
 import sys
-from collections import deque
 
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-res = []
+numbers = range(1, n+1)
 
-
-def backtracking():
-    if len(res) == m:
-        print(' '.join(map(str, res)))
-        return
-
-    for i in range(1, n + 1):
-        if i not in res:
-            res.append(i)
-            backtracking()
-            res.pop()
-
-
-backtracking()
+# permutations를 사용하여 1부터 n까지의 수 중에서 m개를 선택하는 모든 순열을 생성
+for perm in permutations(numbers, m):
+    print(' '.join(map(str, perm)))
