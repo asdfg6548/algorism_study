@@ -4,7 +4,7 @@ def solution(numbers):
     numbers = list(map(str, numbers))
     
     # 정렬 기준을 정의: 두 수를 이어 붙였을 때 더 큰 수를 만드는 순서
-    numbers.sort(key=lambda x: x*3, reverse=True)
+    numbers.sort(key=lambda x: x*5, reverse=True)
     
     # 정렬된 숫자들을 이어 붙여 결과 생성
     answer = ''.join(numbers)
