@@ -1,8 +1,11 @@
 def solution(phone_book):
-    phone_book.sort()  # 전화번호부를 사전순으로 정렬
-    
-    for i in range(len(phone_book) - 1):
-        if phone_book[i + 1].startswith(phone_book[i]):
-            return False
-    
+    hash_map = set(phone_book)
+
+    for phone_number in phone_book:
+        temp = ""
+        for digit in phone_number[:-1]:  # 마지막 숫자를 제외한 모든 숫자에 대해
+            temp += digit
+            if temp in hash_map:
+                return False
+
     return True
