@@ -3,6 +3,6 @@ def solution(arr):
     
     res=sum(arr)
     cnt=len(arr)
-    
     answer=res/cnt
+    
     return answer
